@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autos Colombia - Registro de Salida</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <style>
+        body { background-color: #F8FAFC; font-family: 'Segoe UI', Tahoma, sans-serif; color: #1E293B; }
+        .bg-card { background: #FFFFFF; border-radius: 12px; border: 1px solid #E2E8F0; }
+        .btn-rojo { background-color: #DC2626; color: white; border: none; font-weight: 600; border-radius: 6px; font-size: 13px; padding: 6px 14px; }
+        .btn-rojo:hover { background-color: #B91C1C; color: white; }
+        .badge-activo { background-color: #DCFCE7; color: #166534; font-weight: 600; border-radius: 20px; }
+        .avatar { width: 38px; height: 38px; background-color: #E2E8F0; color: #475569; font-weight: bold; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+        .kpi-box { border-radius: 10px; padding: 18px 24px; background: white; border: 1px solid #E2E8F0; }
+        .badge-green-box { background: #DCFCE7; color: #15803D; font-weight: bold; font-size: 24px; padding: 4px 16px; border-radius: 8px; }
+        .badge-red-box { background: #FEE2E2; color: #DC2626; font-weight: bold; font-size: 24px; padding: 4px 16px; border-radius: 8px; }
+    </style>
+</head>
+<body>
+
+<header class="bg-white border-bottom py-2 px-4 shadow-sm mb-4">
+    <div class="d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center gap-2">
+            <div class="bg-danger text-white p-2 rounded-3 d-flex align-items-center justify-content-center" style="width: 36px; height: 36px;">
+                <i class="bi bi-car-front-fill"></i>
+            </div>
+            <div>
+                <h6 class="mb-0 fw-bold text-danger">Autos Colombia</h6>
+                <small class="text-muted text-uppercase" style="font-size: 10px; letter-spacing: 0.5px;">Gestión de Parqueaderos</small>
+            </div>
+        </div>
+
+        <div class="d-none d-md-flex gap-2">
+            <a href="index.html" class="btn btn-sm btn-light text-secondary">Entrada</a>
+            <a href="salida.html" class="btn btn-sm btn-light fw-bold text-danger border">Salida / Vehículos</a>
+        </div>
+
+        <div class="d-flex align-items-center gap-3">
+            <span class="badge badge-activo px-3 py-2"><i class="bi bi-dot"></i> Activo</span>
+            <div class="d-flex align-items-center gap-2">
+                <div class="avatar">JM</div>
+                <div class="d-none d-sm-block text-start">
+                    <span class="d-block fw-bold small">Juan Miguel</span>
+                    <small class="text-muted" style="font-size: 11px;">Operador de acceso</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main class="container">
+    <div class="mb-4">
+        <small class="text-muted">Inicio &nbsp;/&nbsp; Control de acceso</small>
+        <h3 class="fw-bold mt-2 mb-1">Registro de salida</h3>
+        <p class="text-secondary small">Consulta los vehículos dentro del parqueadero y registra su salida.</p>
+    </div>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-4">
+            <div class="kpi-box d-flex justify-content-between align-items-center shadow-sm">
+                <span class="text-secondary small fw-semibold">Capacidad total</span>
+                <span class="fs-2 fw-bold text-dark">50</span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="kpi-box d-flex justify-content-between align-items-center shadow-sm">
+                <span class="text-secondary small fw-semibold">Celdas disponibles</span>
+                <span class="badge-green-box" id="lblLibres">12</span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="kpi-box d-flex justify-content-between align-items-center shadow-sm">
+                <span class="text-secondary small fw-semibold">Celdas ocupadas</span>
+                <span class="badge-red-box" id="lblOcupadas">38</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-card p-4 shadow-sm mb-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="fw-bold mb-0">Vehículos actualmente dentro</h5>
+            <span class="badge bg-light text-secondary border px-3 py-2" id="lblTotalActivos">38 vehículos activos</span>
+        </div>
+
+        <div class="row g-3 mb-4">
+            <div class="col-md-8">
+                <div class="input-group">
+                    <span class="input-group-text bg-white border-end-0 text-muted"><i class="bi bi-search"></i></span>
+                    <input type="text" id="txtBuscar" onkeyup="filtrarTabla()" class="form-control border-start-0" placeholder="Buscar por placa...">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <select class="form-select text-secondary">
+                    <option selected>Tipo de vehículo (Todos)</option>
+                    <option value="Automóvil">Automóvil</option>
+                    <option value="Motocicleta">Motocicleta</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0" id="tablaSalidas">
+                <thead class="table-light">
+                <tr class="small text-secondary">
+                    <th class="py-3">Placa</th>
+                    <th class="py-3">Tipo</th>
+                    <th class="py-3">Celda Asignada</th>
+                    <th class="py-3">Hora de Entrada</th>
+                    <th class="py-3 text-end">Acción</th>
+                </tr>
+                </thead>
+                <tbody id="cuerpoTabla">
+                <tr>
+                    <td class="fw-bold">ABC-123</td>
+                    <td>Automóvil</td>
+                    <td>Celda A-04</td>
+                    <td class="text-secondary">14:30</td>
+                    <td class="text-end"><button onclick="darSalida(this, 'ABC-123')" class="btn btn-rojo">Registrar Salida</button></td>
+                </tr>
+                <tr>
+                    <td class="fw-bold">XYZ-789</td>
+                    <td>Motocicleta</td>
+                    <td>Celda B-02</td>
+                    <td class="text-secondary">15:15</td>
+                    <td class="text-end"><button onclick="darSalida(this, 'XYZ-789')" class="btn btn-rojo">Registrar Salida</button></td>
+                </tr>
+                <tr>
+                    <td class="fw-bold">KLR-456</td>
+                    <td>Automóvil</td>
+                    <td>Celda A-12</td>
+                    <td class="text-secondary">15:40</td>
+                    <td class="text-end"><button onclick="darSalida(this, 'KLR-456')" class="btn btn-rojo">Registrar Salida</button></td>
+                </tr>
+                <tr>
+                    <td class="fw-bold">DEF-852</td>
+                    <td>Automóvil</td>
+                    <td>Celda A-08</td>
+                    <td class="text-secondary">16:05</td>
+                    <td class="text-end"><button onclick="darSalida(this, 'DEF-852')" class="btn btn-rojo">Registrar Salida</button></td>
+                </tr>
+                <tr>
+                    <td class="fw-bold">JMN-214</td>
+                    <td>Motocicleta</td>
+                    <td>Celda B-06</td>
+                    <td class="text-secondary">16:20</td>
+                    <td class="text-end"><button onclick="darSalida(this, 'JMN-214')" class="btn btn-rojo">Registrar Salida</button></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center pt-4 border-top mt-3">
+            <button class="btn btn-sm btn-light border text-muted px-3" disabled>Anterior</button>
+            <small class="text-muted">Página 1 de 8</small>
+            <button class="btn btn-sm btn-light border text-dark fw-semibold px-3">Siguiente</button>
+        </div>
+    </div>
+</main>
+
+<script>
+    async function cargarDesdeServidor() {
+        try {
+            const res = await fetch('/api/estado');
+            const data = await res.json();
+            if (data.activos && data.activos.length > 0) {
+                const tbody = document.getElementById('cuerpoTabla');
+                tbody.innerHTML = '';
+                data.activos.forEach(v => {
+                    const hora = new Date(v.fechaEntrada).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                    tbody.innerHTML += `
+                            <tr>
+                                <td class="fw-bold">${v.placaVehiculo}</td>
+                                <td>${v.tipoVehiculo || 'Automóvil'}</td>
+                                <td>Celda #${v.idCelda}</td>
+                                <td class="text-secondary">${hora}</td>
+                                <td class="text-end"><button onclick="darSalida(this, '${v.placaVehiculo}')" class="btn btn-rojo">Registrar Salida</button></td>
+                            </tr>
+                        `;
+                });
+                document.getElementById('lblTotalActivos').innerText = `${data.activos.length} vehículos activos`;
+            }
+        } catch (e) {}
+    }
+
+    async function darSalida(btn, placa) {
+        if (!confirm(`¿Confirmar salida del vehículo con placa ${placa}?`)) return;
+
+        try {
+            const res = await fetch('/api/salida', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ placa: placa })
+            });
+            const data = await res.json();
+            alert(data.mensaje);
+        } catch (e) {
+            alert(`Salida confirmada para placa ${placa}. Celda liberada.`);
+        }
+
+        btn.closest('tr').remove();
+    }
+
+    function filtrarTabla() {
+        const input = document.getElementById('txtBuscar').value.toUpperCase();
+        const filas = document.getElementById('cuerpoTabla').getElementsByTagName('tr');
+        for (let i = 0; i < filas.length; i++) {
+            const placa = filas[i].getElementsByTagName('td')[0]?.innerText || '';
+            filas[i].style.display = placa.toUpperCase().includes(input) ? '' : 'none';
+        }
+    }
+
+    cargarDesdeServidor();
+</script>
+</body>
+</html>

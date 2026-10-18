@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="AutosColombia.BusinessLogic/AutosColombia.BusinessLogic.csproj" />
+  <Project Path="AutosColombia.Data/AutosColombia.Data.csproj" />
+  <Project Path="AutosColombia.Models/AutosColombia.Models.csproj" />
+  <Project Path="AutosColombia.UI/AutosColombia.UI.csproj" />
+</Solution>

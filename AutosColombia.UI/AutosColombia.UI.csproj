@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <RootNamespace>AutosColombia</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\AutosColombia.BusinessLogic\AutosColombia.BusinessLogic.csproj" />
+        <ProjectReference Include="..\AutosColombia.Models\AutosColombia.Models.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Include="wwwroot\index.html" />
+      <None Include="wwwroot\salida.html" />
+    </ItemGroup>
+
+</Project>
