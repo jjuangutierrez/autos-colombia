@@ -26,13 +26,10 @@ La solución sigue estrictamente el diseño de paquetes y arquitectura por capas
 ## Requisitos e Instrucciones de Ejecución
 
 ### Requisitos previos:
-- SDK de **.NET 8.0** o superior instalado en el equipo.
-- Navegador web moderno (Google Chrome, Microsoft Edge, Firefox).
+- SDK de .NET 8.0 o superior instalado en el equipo.
+- Navegador web
 
----
-
-### Opción A: Ejecución desde la Terminal / Consola (Recomendada)
-1. Abrir una terminal (PowerShell o CMD) en la carpeta raíz del proyecto.
-2. Navegar al proyecto de interfaz de usuario:
+- Abrir una terminal (PowerShell o CMD) en la carpeta raíz del proyecto.
+- Navegar al proyecto de interfaz de usuario:
    ```bash
    cd AutosColombia.UI
